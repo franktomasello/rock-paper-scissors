@@ -15,3 +15,6 @@ function getComputerChoice() {
     //return the randomized element from the array
     return randomElement;
 }
+
+console.log(getComputerChoice());
+
