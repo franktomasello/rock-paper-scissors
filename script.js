@@ -1,81 +1,83 @@
 function getComputerChoice() {
-    // declaring an array literal
-    const rockPaperScissors = [];
-  
-    // pushing the elements to the array
-    rockPaperScissors.push("Rock");
-    rockPaperScissors.push("Scissors");
-    rockPaperScissors.push("Paper");
-  
-    // pick a random index
-    const randomIndex = Math.floor(Math.random() * rockPaperScissors.length);
-    // choose a random element from the array
-    const randomElement = rockPaperScissors[randomIndex];
-  
-    // return the randomized element from the array
-    return randomElement;
-  }
-  
-function playARound(playerSelection, computerSelection) {
-// Convert both selections to lowercase for case-insensitive comparison
-playerSelection = playerSelection.toLowerCase();
-computerSelection = computerSelection.toLowerCase();
+  // Declaring an array literal
+  const rockPaperScissors = ["Rock", "Scissors", "Paper"];
 
-// Check for a tie
-if (playerSelection === computerSelection) {
-    return "It's a tie!";
+  // Pick a random index
+  const randomIndex = Math.floor(Math.random() * rockPaperScissors.length);
+
+  // Return the randomized element from the array
+  return rockPaperScissors[randomIndex];
 }
 
-// Check for player win conditions
-if (
+function playARound(playerSelection, computerSelection) {
+  // Convert both selections to lowercase for case-insensitive comparison
+  playerSelection = playerSelection.toLowerCase();
+  computerSelection = computerSelection.toLowerCase();
+
+  // Check for a tie
+  if (playerSelection === computerSelection) {
+    return "It's a tie!";
+  }
+
+  // Check for player win conditions
+  if (
     (playerSelection === 'rock' && computerSelection === 'scissors') ||
     (playerSelection === 'paper' && computerSelection === 'rock') ||
     (playerSelection === 'scissors' && computerSelection === 'paper')
-) {
+  ) {
     return "You win!";
-}
-
-// If none of the above conditions are met, the player loses
-return "You lose!";
-}
-
-// const playerSelection = "rock";
-// const computerSelection = getComputerChoice();
-// console.log(playARound(playerSelection, computerSelection));
-//cool
-  
-
-function game() {
-    let playerWins = 0;     // Counter for player wins
-    let computerWins = 0;   // Counter for computer wins
-  
-    for (let i = 0; i < 5; i++) {
-      const playerSelection = prompt("Rock, Paper, or Scissors?");
-      const computerSelection = getComputerChoice();
-      const result = playARound(playerSelection, computerSelection);
-      alert(result);
-      
-      // Increment the corresponding counter based on the result
-      if (result === "You win!") {
-        playerWins++;
-      } else if (result === "You lose!") {
-        computerWins++;
-      }
-  
-      // Display the number of computer wins and player wins after each round
-      alert("Player wins: " + playerWins + "\nComputer wins: " + computerWins);
-    }
-  
-    // Display the winner of the game
-    if (playerWins > computerWins) {
-      alert("Player wins the game!");
-    } else if (computerWins > playerWins) {
-      alert("Computer wins the game!");
-    } else {
-      alert("It's a tie! No clear winner.");
-    }
   }
-  
-  
 
-console.log(game());
+  // If none of the above conditions are met, the player loses
+  return "You lose!";
+}
+
+document.addEventListener("DOMContentLoaded", function(){
+  // Select all buttons
+  let buttons = document.querySelectorAll('button');
+
+  // Select results div
+  let resultsDiv = document.querySelector('#results');
+
+  // Select score divs
+  let playerScoreDiv = document.querySelector('#playerScore');
+  let computerScoreDiv = document.querySelector('#computerScore');
+
+  // Initialize scores
+  let playerScore = 0;
+  let computerScore = 0;
+
+  // Add event listener to each button
+  buttons.forEach((button) => {
+    button.addEventListener('click', function() {
+      // Get playerSelection from button text
+      let playerSelection = button.innerText;
+      let computerSelection = getComputerChoice();
+
+      // Run playARound function with playerSelection and computerSelection
+      let result = playARound(playerSelection, computerSelection);
+
+      // Update scores based on the result
+      if (result === "You win!") {
+        playerScore++;
+      } else if (result === "You lose!") {
+        computerScore++;
+      }
+
+      // Display result in the results div
+      resultsDiv.innerText = result;
+
+      // Display scores
+      playerScoreDiv.innerText = "Player Score: " + playerScore;
+      computerScoreDiv.innerText = "Computer Score: " + computerScore;
+
+      // Check if either score has reached 5 and display winner
+      if (playerScore === 5) {
+        resultsDiv.innerText += "\nPlayer wins the game!";
+      } else if (computerScore === 5) {
+        resultsDiv.innerText += "\nComputer wins the game!";
+      }
+    });
+  });
+});
+
