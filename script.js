@@ -42,6 +42,7 @@ return "You lose!";
 // const playerSelection = "rock";
 // const computerSelection = getComputerChoice();
 // console.log(playARound(playerSelection, computerSelection));
+//cool
   
 
 function game() {
