@@ -39,13 +39,42 @@ if (
 return "You lose!";
 }
 
-const playerSelection = "rock";
-const computerSelection = getComputerChoice();
-console.log(playARound(playerSelection, computerSelection));
+// const playerSelection = "rock";
+// const computerSelection = getComputerChoice();
+// console.log(playARound(playerSelection, computerSelection));
   
 
 function game() {
+    let playerWins = 0;     // Counter for player wins
+    let computerWins = 0;   // Counter for computer wins
+  
     for (let i = 0; i < 5; i++) {
-        playARound(playerSelection, computerSelection)
+      const playerSelection = prompt("Rock, Paper, or Scissors?");
+      const computerSelection = getComputerChoice();
+      const result = playARound(playerSelection, computerSelection);
+      alert(result);
+      
+      // Increment the corresponding counter based on the result
+      if (result === "You win!") {
+        playerWins++;
+      } else if (result === "You lose!") {
+        computerWins++;
+      }
+  
+      // Display the number of computer wins and player wins after each round
+      alert("Player wins: " + playerWins + "\nComputer wins: " + computerWins);
     }
-}
+  
+    // Display the winner of the game
+    if (playerWins > computerWins) {
+      alert("Player wins the game!");
+    } else if (computerWins > playerWins) {
+      alert("Computer wins the game!");
+    } else {
+      alert("It's a tie! No clear winner.");
+    }
+  }
+  
+  
+
+console.log(game());
